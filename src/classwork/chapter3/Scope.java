@@ -1,4 +1,4 @@
-package homework.chapter3;
+package classwork.chapter3;
 
 class Scope {
     public static void main(String[] args) {

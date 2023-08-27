@@ -1,4 +1,4 @@
-package homework.chapter2;
+package classwork.chapter2;
 
 class BlockTest {
 
