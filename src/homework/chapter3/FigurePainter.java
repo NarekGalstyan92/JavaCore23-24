@@ -8,15 +8,15 @@ class FigurePainter {
             }
             System.out.println();
         }
-        /* Output:
+/* Output:
 
-         *
-         * *
-         * * *
-         * * * *
-         * * * * *
+ *
+ * *
+ * * *
+ * * * *
+ * * * * *
 
-         */
+ */
 
         System.out.println("\n");
 
@@ -26,15 +26,15 @@ class FigurePainter {
             }
             System.out.println();
         }
-        /* Output:
+/* Output:
 
-         * * * * *
-         * * * *
-         * * *
-         * *
-         *
+ * * * * *
+ * * * *
+ * * *
+ * *
+ *
 
-         */
+ */
 
         System.out.println("\n");
 
@@ -48,15 +48,15 @@ class FigurePainter {
             }
             System.out.println();
         }
-        /* Output:
+/* Output:
 
          *
-         * *
-         * * *
-         * * * *
-         * * * * *
+       * *
+     * * *
+   * * * *
+ * * * * *
 
-         */
+ */
 
         System.out.println("\n");
 
@@ -71,15 +71,15 @@ class FigurePainter {
 
             System.out.println();
         }
-        /* Output:
+/* Output:
 
-         * * * * *
-         * * * *
-         * * *
-         * *
+ * * * * *
+   * * * *
+     * * *
+       * *
          *
 
-         */
+ */
 
         System.out.println("\n");
 
@@ -102,19 +102,19 @@ class FigurePainter {
             System.out.println();
         }
 
-        /* Output:
+/* Output:
 
-             *
-            * *
-           * * *
-          * * * *
-         * * * * *
-          * * * *
-           * * *
-            * *
-             *
+     *
+    * *
+   * * *
+  * * * *
+ * * * * *
+  * * * *
+   * * *
+    * *
+     *
 
-         */
+*/
 
     }
 }
