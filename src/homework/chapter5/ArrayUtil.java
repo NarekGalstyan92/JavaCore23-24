@@ -72,7 +72,9 @@ class ArrayUtil {
         // Հաշվել ու տպել մասիվում կենտերի քանակը։
         int odd = 0;
         for (int number : numbers) {
-            if (Math.abs(number) % 2 == 1) { // I used Math.abs, because Java can't check if the negative number is odd or even. Greetings from Glendale Community collage)))
+            if (Math.abs(number) % 2 == 1) { // I used Math.abs, because Java can't check if the negative number is odd or even.
+                // Greetings from Glendale Community collage)))
+                // To avoid Math.abs use number % 2 != 0
                 odd++;
             }
         }
