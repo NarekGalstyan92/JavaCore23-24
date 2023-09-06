@@ -44,19 +44,17 @@ class ArrayUtil {
         // Տպել մասիվի մեջտեղի թիվը, ստուգել որ 2-ից մեծ լինի երկարությունը,
         // եթե փոքր կամ հավասար էղավ, տպեք որ can't print middle values.
         // եթե զույգ է մասիվի մեջի էլեմենտների թիվը, տպեք մեջտեղի երկու էլեմենտները, եթե կենտ է մի հատը։
-        for (int i = 0; i < numbers.length; i++) {
-            if (numbers.length > 2) {
-                if (numbers.length % 2 == 0) { //this line will work if the array values are even
-                    System.out.print("The middle values of the array are: " + numbers[(numbers.length / 2) - 1] + " and " + numbers[numbers.length / 2]);
-                    break;
-                } else { //this line will work if the array values are odd
-                    System.out.print("The middle values of the array is: " + numbers[numbers.length / 2]);
-                    break;
-                }
-            } else if (numbers.length <= 2) { //this line will work if the array contains 2 or fewer values
-                System.out.print("Can't print middle values");
+
+        if (numbers.length > 2) {
+            if (numbers.length % 2 == 0) { //this line will work if the array values are even
+                System.out.print("The middle values of the array are: " + numbers[(numbers.length / 2) - 1] + " and " + numbers[numbers.length / 2]);
+            } else { //this line will work if the array values are odd
+                System.out.print("The middle value of the array is: " + numbers[numbers.length / 2]);
             }
+        } else if (numbers.length <= 2) { //this line will work if the array contains 2 or fewer values
+            System.out.print("Can't print middle values");
         }
+
 
         System.out.println("\n");
 
