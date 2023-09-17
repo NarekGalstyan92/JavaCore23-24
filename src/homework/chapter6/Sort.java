@@ -15,11 +15,11 @@ public class Sort {
         }
         System.out.println();
         for (int i = 0; i < array1.length; i++) {
-            for (int j = i + 1; j < array1.length; j++) {
+            for (int j = 1; j < array1.length - i; j++) {
                 if (array1[i] > array1[j]) {
-                    int perm = array1[j];
+                    int temp = array1[j];
                     array1[j] = array1[i];
-                    array1[i] = perm;
+                    array1[i] = temp;
                 }
             }
         }
