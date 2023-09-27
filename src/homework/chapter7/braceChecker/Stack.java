@@ -2,8 +2,8 @@ package homework.chapter7.braceChecker;
 
 // This class defines an integer stack that can hold 10 values
 class Stack {
-    char[] stck = new char[1]; // destination of this array is to keep characters in it
-    int[] intStck = new int[1]; // destination of this array is to keep indexes of the characters in it
+    char[] stck = new char[10]; // destination of this array is to keep characters in it
+    int[] intStck = new int[10]; // destination of this array is to keep indexes of the characters in it
     int tos;
 
     // Initialize top-of-stack

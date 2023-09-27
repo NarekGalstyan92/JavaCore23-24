@@ -2,17 +2,17 @@ package homework.chapter7.braceChecker;
 
 public class BraceChecker {
 
-    private final String text;
+    private final String TEXT;
 
     // Passing parameter to constructor
     public BraceChecker(String text) {
-        this.text = text;
+        this.TEXT = text;
     }
 
     public void check() {
         Stack stack = new Stack();
-        for (int i = 0; i < text.length(); i++) {
-            char c = text.charAt(i);
+        for (int i = 0; i < TEXT.length(); i++) {
+            char c = TEXT.charAt(i);
 
             switch (c) {
                 case '(':
@@ -67,7 +67,7 @@ public class BraceChecker {
         */
         if (stack.tos > -1) {
             for (int i = stack.tos; i >= 0; i--) {
-                char braceType = text.charAt(stack.intStck[i]);
+                char braceType = TEXT.charAt(stack.intStck[i]);
                 int bracePosition = stack.intStck[i];
                 System.out.println("Brace \'" + braceType + "\' was opened in index " + bracePosition + " but never closed");
             }
