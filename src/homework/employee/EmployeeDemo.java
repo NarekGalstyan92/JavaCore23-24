@@ -13,7 +13,7 @@ public class EmployeeDemo {
         Employee employee1 = new Employee("Poxos", "Poxosyan", "1234A", 120000, "Service Titan", "Junior software developer");
         Employee employee2 = new Employee("Petros", "Petrosyan", "4321B", 180000, "Lexington brothers", "Middle software developer");
         Employee employee3 = new Employee("Martiros", "Martirosyan", "0001C", 220000, "ITSpace", "Senior software developer");
-        Employee employee4 = new Employee("Narek", "Galsyan", "2020D", 1000, "Titan utilities", "Junior web developer");
+        Employee employee4 = new Employee("Narek", "Galstyan", "2020D", 1000, "Titan utilities", "Junior web developer");
         employeeStorage.add(employee1);
         employeeStorage.add(employee2);
         employeeStorage.add(employee3);
@@ -29,6 +29,13 @@ public class EmployeeDemo {
             System.out.println("Please input 3 to SEARCH EMPLOYEE BY ID");
             System.out.println("Please input 4 to SEARCH EMPLOYEE BY COMPANY");
             System.out.println("Please input 5 to SEARCH EMPLOYEE BY SALARY");
+            System.out.println("Please input 6 to CHANGE EMPLOYEE NAME");
+            System.out.println("Please input 7 to CHANGE EMPLOYEE SURNAME");
+            System.out.println("Please input 8 to CHANGE EMPLOYEE COMPANY");
+            System.out.println("Please input 9 to CHANGE EMPLOYEE POSITION");
+            System.out.println("Please input 10 to CHANGE EMPLOYEE SALARY");
+            System.out.println("Please input 11 to DELETE EMPLOYEE");
+
             String command = scanner.nextLine();
             switch (command) {
                 case "0":
@@ -73,12 +80,49 @@ public class EmployeeDemo {
                     double maxSalary = Double.parseDouble(scanner.nextLine());
                     employeeStorage.searchBySalary(minSalary, maxSalary);
                     break;
+                case "6":
+                    System.out.println("Please enter employee ID to change the name");
+                    String nameKeyword = scanner.nextLine();
+                    System.out.println("Please enter the new name");
+                    String changedName = scanner.nextLine();
+                    employeeStorage.changeName(nameKeyword, changedName);
+                    break;
+                case "7":
+                    System.out.println("Please enter employee ID to change the surname");
+                    String surnameKeyword = scanner.nextLine();
+                    System.out.println("Please enter the new surname");
+                    String changedSurname = scanner.nextLine();
+                    employeeStorage.changeSurname(surnameKeyword, changedSurname);
+                    break;
+                case "8":
+                    System.out.println("Please enter employee ID to change the company");
+                    String companyKwrd = scanner.nextLine();
+                    System.out.println("Please enter the new company");
+                    String newCompany = scanner.nextLine();
+                    employeeStorage.changeCompany(companyKwrd, newCompany);
+                    break;
+                case "9":
+                    System.out.println("Please enter employee ID to change the position");
+                    String positionKeyword = scanner.nextLine();
+                    System.out.println("Please enter the new company");
+                    String newPosition = scanner.nextLine();
+                    employeeStorage.changePosition(positionKeyword, newPosition);
+                    break;
+                case "10":
+                    System.out.println("Please enter employee ID to change the salary");
+                    String salaryKeyword = scanner.nextLine();
+                    System.out.println("Please enter the new salary");
+                    double newSalary = Double.parseDouble(scanner.nextLine());
+                    employeeStorage.changeSalary(salaryKeyword, newSalary);
+                    break;
+                case "11":
+                    System.out.println("Please enter employee ID to delete employee");
+                    String idForDelete = scanner.nextLine();
+                    employeeStorage.deleteEmployee(idForDelete);
+                    break;
                 default:
                     System.out.println("Wrong input");
-
             }
         }
-
-
     }
 }
