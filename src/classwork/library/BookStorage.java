@@ -2,9 +2,10 @@ package classwork.library;
 
 public class BookStorage {
 
-    private Book [] books = new Book[10];
+    private Book[] books = new Book[10];
     private int size;
-    public void add (Book book) {
+
+    public void add(Book book) {
         if (size == books.length) {
             extend();
         }
@@ -13,7 +14,7 @@ public class BookStorage {
 
     public void print() {
         for (int i = 0; i < size; i++) {
-            System.out.println("Title: " + books[i].getTitle() + ", Author name: " + books[i].getAuthorName() + ", Book price: " + books[i].getPrice() + ", Book count: " + books[i].getCount());
+            System.out.println(books[i].toString());
         }
     }
 
@@ -29,7 +30,7 @@ public class BookStorage {
 
 
     private void extend() {
-        Book [] tmp = new Book[books.length + 10];
+        Book[] tmp = new Book[books.length + 10];
         System.arraycopy(books, 0, tmp, 0, books.length);
         books = tmp;
     }

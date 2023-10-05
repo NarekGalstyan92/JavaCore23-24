@@ -48,4 +48,12 @@ public class Book {
     public void setCount(int count) {
         this.count = count;
     }
+
+    @Override
+    public String toString() {
+        return  "Title='" + title + '\'' +
+                ", Author name ='" + authorName + '\'' +
+                ", Price=" + price +
+                ", Count=" + count;
+    }
 }
