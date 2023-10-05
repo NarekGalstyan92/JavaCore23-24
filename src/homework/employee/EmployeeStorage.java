@@ -14,9 +14,7 @@ public class EmployeeStorage {
 
     public void print() {
         for (int i = 0; i < size; i++) {
-            System.out.println("Name: " + employees[i].getName() + ", Surname: " + employees[i].getSurname() +
-                    ", ID: " + employees[i].getId() + ", Salary: " + employees[i].getSalary() + ",  Company: " +
-                    employees[i].getCompany() + ", Position: " + employees[i].getPosition());
+            System.out.println(employees[i].toString());
         }
     }
 
