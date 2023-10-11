@@ -6,8 +6,7 @@ class Triangle extends Figure {
     }
 
     // override area for triangle
-
-    @java.lang.Override
+    @Override
     double area() {
         System.out.println("Inside Area for triangle");
         return dim1 * dim2 / 2;

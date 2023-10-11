@@ -1,7 +1,7 @@
 package classwork.chapter8;
 
 // Using run-time polymorphism
-class Figure {
+abstract class Figure {
     double dim1;
     double dim2;
 
@@ -10,8 +10,5 @@ class Figure {
         dim2 = b;
     }
 
-    double area() {
-        System.out.println("Area for figure is undefined");
-        return 0;
-    }
+    abstract double area();
 }

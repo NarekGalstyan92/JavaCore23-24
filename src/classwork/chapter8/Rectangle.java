@@ -6,7 +6,7 @@ class Rectangle extends Figure {
     }
 
     // override area for rectangle
-    @java.lang.Override
+    @Override
     double area() {
         System.out.println("Inside Area for rectangle");
         return dim1 * dim2;

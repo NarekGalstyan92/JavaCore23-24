@@ -1,6 +1,6 @@
 package classwork.chapter8;
 
-class Override {
+class OverrideExample {
     public static void main(String[] args) {
         B subOb = new B(1, 2, 3);
 
