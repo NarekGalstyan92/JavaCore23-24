@@ -18,7 +18,7 @@ public class DateExample {
         System.out.println(date);
 
 
-//        Date date = new Date();
+//        DateUtil date = new DateUtil();
 //        // 14-10-2023
 //        // dd-MM-yyyy hh:mm
 //        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm");
