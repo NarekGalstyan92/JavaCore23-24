@@ -4,25 +4,29 @@ import homework.employeemanagemenet.model.Company;
 import homework.employeemanagemenet.model.Employee;
 import homework.employeemanagemenet.storage.CompanyStorage;
 import homework.employeemanagemenet.storage.EmployeeStorage;
+import homework.employeemanagemenet.util.DateUtil;
 
+import java.text.ParseException;
+import java.util.Date;
 import java.util.Scanner;
 
-public class EmployeeManagementMain {
+public class EmployeeManagementMain implements Command {
 
     private static Scanner scanner = new Scanner(System.in);
     private static EmployeeStorage employeeStorage = new EmployeeStorage();
     private static CompanyStorage companyStorage = new CompanyStorage();
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
 
-
+        Date dateOfB = DateUtil.stringToDate("20-10-1990");
+        Date registerDate = new Date();
         Company company1 = new Company("C001", "Hemmersbach", "Van Nuys");
         Company company2 = new Company("C002", "ITBrothers", "Glendale");
         Company company3 = new Company("C003", "ITSpace", "Gyumri");
-        Employee employee1 = new Employee("E001", "Narek", "Galstyan", "123456", 123, "Manager", company1);
-        Employee employee2 = new Employee("E002", "Poxos", "Poxosyan", "654321", 321, "Tech support", company2);
-        Employee employee3 = new Employee("E003", "Petros", "Petrosyan", "136245", 1200, "Call Center", company3);
+        Employee employee1 = new Employee("E001", "Narek", "Galstyan", "123456", 123, "Manager", company1, dateOfB, registerDate);
+        Employee employee2 = new Employee("E002", "Poxos", "Poxosyan", "654321", 321, "Tech support", company2, dateOfB, registerDate);
+        Employee employee3 = new Employee("E003", "Petros", "Petrosyan", "136245", 1200, "Call Center", company3, dateOfB, registerDate);
         companyStorage.add(company1);
         companyStorage.add(company2);
         companyStorage.add(company3);
@@ -32,47 +36,46 @@ public class EmployeeManagementMain {
         boolean isRun = true;
 
         while (isRun) {
-            printCommands();
+            Command.printCommands();
             String command = scanner.nextLine();
             switch (command) {
-                case "0":
+                case EXIT:
                     isRun = false;
                     break;
-                case "1":
+                case ADD_COMPANY:
                     addCompany();
                     break;
-                case "2":
+                case ADD_EMPLOYEE:
                     addEmployee();
                     break;
-                case "3":
+                case PRINT_ALL_COMPANIES:
                     companyStorage.print();
                     break;
-                case "4":
+                case PRINT_ALL_EMPLOYEES:
                     employeeStorage.print();
                     break;
-                case "5":
+                case SEARCH_EMPLOYEE_BY_ID:
                     searchEmployeeById();
                     break;
-                case "6":
+                case SEARCH_EMPLOYEE_BY_COMPANY:
                     searchEmployeeByCompany();
                     break;
-                case "7":
+                case DELETE_COMPANY:
                     deleteCompany();
                     break;
-                case "8":
+                case DELETE_EMPLOYEE:
                     deleteEmployee();
                     break;
-                case "9":
+                case CHANGE_COMPANY:
                     changeCompany();
                     break;
-                case "10":
+                case CHANGE_EMPLOYEE:
                     changeEmployee();
                     break;
                 default:
                     System.out.println("Invalid command. Try again!");
             }
         }
-
     }
 
 
@@ -188,7 +191,7 @@ public class EmployeeManagementMain {
         }
     }
 
-    private static void addEmployee() {
+    private static void addEmployee() throws ParseException {
         System.out.println("Please choose company id");
         companyStorage.print();
         String companyId = scanner.nextLine();
@@ -214,7 +217,11 @@ public class EmployeeManagementMain {
         String employeePosition = scanner.nextLine();
         System.out.println("please input employee salary AMD");
         double employeeSalary = Double.parseDouble(scanner.nextLine());
-        Employee employee = new Employee(employeeId, employeeName, employeeSurname, employeePhone, employeeSalary, employeePosition, companyFromStorage);
+        System.out.println("Please input employee date of birthday (dd-MM-yyyy)");
+        String dateOfBirthdayStr = scanner.nextLine();
+        Date dateOfB = DateUtil.stringToDate(dateOfBirthdayStr);
+        Date registerDate = new Date();
+        Employee employee = new Employee(employeeId, employeeName, employeeSurname, employeePhone, employeeSalary, employeePosition, companyFromStorage, dateOfB, registerDate);
         employeeStorage.add(employee);
         System.out.println("Employee registered!");
     }
@@ -236,17 +243,5 @@ public class EmployeeManagementMain {
         System.out.println("company registered.");
     }
 
-    private static void printCommands() {
-        System.out.println("Please input 0 for EXIT");
-        System.out.println("Please input 1 for ADD_COMPANY");
-        System.out.println("Please input 2 for ADD_EMPLOYEE");
-        System.out.println("Please input 3 for PRINT_ALL_COMPANIES");
-        System.out.println("Please input 4 for PRINT_ALL_EMPLOYEES");
-        System.out.println("Please input 5 for SEARCH_EMPLOYEE_BY_ID");
-        System.out.println("Please input 6 for SEARCH_EMPLOYEE_BY_COMPANY");
-        System.out.println("Please input 7 for DELETE_COMPANY");
-        System.out.println("Please input 8 for DELETE_EMPLOYEE");
-        System.out.println("Please input 9 for CHANGE_COMPANY");
-        System.out.println("Please input 10 for CHANGE_EMPLOYEE");
-    }
+
 }
