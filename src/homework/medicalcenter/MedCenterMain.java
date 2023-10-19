@@ -1,32 +1,43 @@
 package homework.medicalcenter;
 
+import homework.medicalcenter.util.DateUtil;
 import homework.medicalcenter.model.Doctor;
 import homework.medicalcenter.model.Patient;
 import homework.medicalcenter.storage.DoctorStorage;
 import homework.medicalcenter.storage.PatientStorage;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.Scanner;
 
-public class MedCenterMain {
+public class MedCenterMain implements Command {
 
     private static Scanner scanner = new Scanner(System.in);
     private static DoctorStorage doctorStorage = new DoctorStorage();
     private static PatientStorage patientStorage = new PatientStorage();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
 
         // list of ready doctors and patients for test
         // Doctors id starts with 'D'
         // Patients id starts with 'P'
+        Date dateOfB1 = DateUtil.stringToDate("20-10-1990");
+        Date dateOfB2 = DateUtil.stringToDate("13-08-1993");
+        Date dateOfB3 = DateUtil.stringToDate("08-03-1988");
+        Date dateOfB4 = DateUtil.stringToDate("19-06-2002");
+        Date appointmentDateTime1 = DateUtil.stringToDateTime("20-10-2022 10:00");
+        Date appointmentDateTime2 = DateUtil.stringToDateTime("20-10-2022 10:30");
+        Date appointmentDateTime3 = DateUtil.stringToDateTime("20-10-2022 11:00");
+        Date appointmentDateTime4 = DateUtil.stringToDateTime("20-10-2022 11:30");
+        Date registerDate = new Date();
         Doctor doctor1 = new Doctor("D001", "Poxos", "Poxosyan", "+37499112233", "poxospoxosyan@gmail.com", "Anesthesiologist");
         Doctor doctor2 = new Doctor("D002", "Petros", "Petrosyan", "+37499332211", "petrospetrosyan@gmail.com", "Cardiologist");
         Doctor doctor3 = new Doctor("D003", "Martiros", "Martirosyan", "+37499221133", "martirosmartirosyan@gmail.com", "Nurse");
         Doctor doctor4 = new Doctor("D004", "Mamikon", "Mamikonyan", "+37443113487", "mamikonmamikonyan@gmail.com", "Orthodontist");
-        Patient patient1 = new Patient("John", "Wick", "(818)5607865", "P001", doctor1, "22/05/2023 11:00");
-        Patient patient2 = new Patient("Mike", "Wazovski", "(818)1234567", "P002", doctor2, "22/05/2023 15:00");
-        Patient patient3 = new Patient("Bob", "Hamilton", "(818)7654321", "P003", doctor3, "10/10/2023 14:00");
-        Patient patient4 = new Patient("Jack", "Sparrow", "(818)0987654", "P004", doctor1, "22/05/2023 10:00");
+        Patient patient1 = new Patient("P001", "John", "Wick", "johnwick@gmail.com", "(818)5607865", dateOfB1, registerDate, doctor1, appointmentDateTime1);
+        Patient patient2 = new Patient("P002", "Mike", "Wazovski", "mikewazovski@gmail.com", "(818)1234567", dateOfB2, registerDate, doctor2, appointmentDateTime2);
+        Patient patient3 = new Patient("P003", "Bob", "Hamilton", "bobhamilton@gmail.com", "(818)7654321", dateOfB3, registerDate, doctor3, appointmentDateTime3);
+        Patient patient4 = new Patient("P004", "Jack", "Sparrow", "jacksparraw@gmail.com", "(818)0987654", dateOfB4, registerDate, doctor1, appointmentDateTime4);
         patientStorage.add(patient1);
         patientStorage.add(patient2);
         patientStorage.add(patient3);
@@ -38,37 +49,37 @@ public class MedCenterMain {
 
         boolean isRun = true;
         while (isRun) {
-            printCommands();
+            Command.printCommands();
             String command = scanner.nextLine();
             switch (command) {
-                case "0":
+                case EXIT:
                     isRun = false;
                     break;
-                case "1":
+                case ADD_DOCTOR:
                     addDoctor();
                     break;
-                case "2":
+                case SEARCH_DOCTOR_BY_PROFESSION:
                     searchDoctorByProfession();
                     break;
-                case "3":
+                case DELETE_DOCTOR_BY_ID:
                     deleteDoctorById();
                     break;
-                case "4":
+                case CHANGE_DOCTOR_BY_ID:
                     changeDoctorById();
                     break;
-                case "5":
+                case ADD_PATIENT:
                     addPatient();
                     break;
-                case "6":
+                case PRINT_ALL_PATIENTS_BY_DOCTOR:
                     printAllPatientsByDoctor();
                     break;
-                case "7":
+                case PRINT_ALL_PATIENTS:
                     printAllPatients();
                     break;
-                case "8":
+                case PRINT_ALL_DOCTORS:
                     printAllDoctors();
                     break;
-                case "9":
+                case DELETE_A_PATIENT:
                     deletePatientById();
                     break;
                 default:
@@ -114,7 +125,7 @@ public class MedCenterMain {
         }
     }
 
-    private static void addPatient() {
+    private static void addPatient() throws ParseException {
         System.out.println("Please enter patient's id");// <- next 6 lines is for checking if we already have a patient with requested id
         String patientId = scanner.nextLine();
         Patient patientFromStorage = patientStorage.getById(patientId);
@@ -126,8 +137,14 @@ public class MedCenterMain {
         String patientName = scanner.nextLine();
         System.out.println("Please enter patient's surname");
         String patientSurname = scanner.nextLine();
+        System.out.println("Please enter patient's email");
+        String patientEmail = scanner.nextLine();
         System.out.println("Please enter patient's phone");
         String patientPhone = scanner.nextLine();
+        System.out.println("Please enter date of birth (dd-MM-yyyy)");
+        String dateOfBirthStr = scanner.nextLine();
+        Date dOb = DateUtil.stringToDate(dateOfBirthStr);
+        Date registrationtDate = new Date();
         System.out.println("Please choose patient doctor by doctor id");// <- next 7 lines is for checking if we have a doctor with requested id
         doctorStorage.print();
         String chosenDoctorForPatient = scanner.nextLine();
@@ -137,9 +154,10 @@ public class MedCenterMain {
             return;
         }
         Doctor chosenDoctor = doctorStorage.getById(chosenDoctorForPatient); // getting doctor id to attach him/her to the patient file
-        Date currentDate = new Date();
-        String dateTimeNow = String.valueOf(currentDate); // recording date and time patient was registered
-        Patient patient = new Patient(patientId, patientName, patientSurname, patientPhone, chosenDoctor, dateTimeNow);
+        System.out.println("Please enter appointment date and time (dd-MM-yyyy hh:mm)");
+        String appointmentDateAndTimeStr = scanner.nextLine();
+        Date appointmentDateAndTime = DateUtil.stringToDateTime(appointmentDateAndTimeStr);
+        Patient patient = new Patient(patientId, patientName, patientSurname, patientEmail, patientPhone, dOb, registrationtDate, chosenDoctor, appointmentDateAndTime);
         patientStorage.add(patient);
         System.out.println(patient);
         System.out.println("Patient is registered!\n");
@@ -236,16 +254,4 @@ public class MedCenterMain {
         System.out.println("Doctor is registered!");
     }
 
-    private static void printCommands() {
-        System.out.println("Please enter 0 to EXIT");
-        System.out.println("Please enter 1 to ADD DOCTOR");
-        System.out.println("Please enter 2 to SEARCH DOCTOR BY PROFESSION");
-        System.out.println("Please enter 3 to DELETE DOCTOR BY ID");
-        System.out.println("Please enter 4 to CHANGE DOCTOR BY ID");
-        System.out.println("Please enter 5 to ADD PATIENT");
-        System.out.println("Please enter 6 to PRINT ALL PATIENTS BY DOCTOR");
-        System.out.println("Please enter 7 to PRINT ALL PATIENTS");
-        System.out.println("Please enter 8 to PRINT ALL DOCTORS");
-        System.out.println("Please enter 9 to DELETE A PATIENT");
-    }
 }

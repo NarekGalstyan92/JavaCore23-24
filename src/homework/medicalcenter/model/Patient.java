@@ -1,28 +1,22 @@
 package homework.medicalcenter.model;
 
+import java.util.Date;
+
 public class Patient extends Person {
-
-    private String id;
     private Doctor doctor;
-    private String date;
+    private Date dateOfBirth;
+    private Date registerDate;
+    private Date appointmentDateTime;
 
-    public Patient(String name, String surname, String phone, String id, Doctor doctor, String date) {
-        super(name, surname, phone);
-        this.id = id;
+    public Patient(String id, String name, String surname, String email, String phone, Date dateOfBirth, Date registerDate, Doctor doctor, Date appointmentDateTime) {
+        super(id, name, surname, email, phone);
         this.doctor = doctor;
-
-        this.date = date;
+        this.dateOfBirth = dateOfBirth;
+        this.registerDate = registerDate;
+        this.appointmentDateTime = appointmentDateTime;
     }
 
     public Patient() {
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public Doctor getDoctor() {
@@ -33,26 +27,46 @@ public class Patient extends Person {
         this.doctor = doctor;
     }
 
-
-    public String getDate() {
-        return date;
+    public Date getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
+    public Date getRegisterDate() {
+        return registerDate;
+    }
+
+    public void setRegisterDate(Date registerDate) {
+        this.registerDate = registerDate;
+    }
+
+    public Date getAppointmentDateTime() {
+        return appointmentDateTime;
+    }
+
+    public void setAppointmentDateTime(Date appointmentDateTime) {
+        this.appointmentDateTime = appointmentDateTime;
+    }
 
     // For more memory-efficient tasks I used a StringBuilder class.
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder("Patient{");
-        stringBuilder.append("name='").append(name).append("', ");
-        stringBuilder.append("surname='").append(surname).append("', ");
-        stringBuilder.append("phone='").append(phone).append("', ");
-        stringBuilder.append("id='").append(id).append("', ");
-        stringBuilder.append("doctor='").append(doctor.getName()).append(" ").append(doctor.getSurname()).append("', ");
-        stringBuilder.append("registration date='").append(date).append("'}");
-        return stringBuilder.toString();
+        StringBuilder sb = new StringBuilder();
+        sb.append("Patient{");
+        sb.append(", id='").append(id).append('\'');
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", surname='").append(surname).append('\'');
+        sb.append(", email='").append(email).append('\'');
+        sb.append(", phone='").append(phone).append('\'');
+        sb.append(", birthday= ").append(dateOfBirth);
+        sb.append(", registration date= ").append(registerDate);
+        sb.append("doctor= ").append(doctor.name).append(" ").append(doctor.surname);
+        sb.append(", appointment date and time= ").append(appointmentDateTime);
+        sb.append("}");
+        return sb.toString();
     }
+
 }

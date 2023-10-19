@@ -2,34 +2,14 @@ package homework.medicalcenter.model;
 
 public class Doctor extends Person {
 
-    private String id;
-    private String email;
     private String profession;
 
-    public Doctor(String id, String name, String surname, String phone, String email, String profession) {
-        super(name, surname, phone);
-        this.id = id;
-        this.email = email;
+    public Doctor(String id, String name, String surname, String email, String phone, String profession) {
+        super(id, name, surname, email, phone);
         this.profession = profession;
     }
 
     public Doctor() {
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getProfession() {
@@ -43,13 +23,15 @@ public class Doctor extends Person {
     // For more memory-efficient tasks I used a StringBuilder class.
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder("Doctor{");
-        stringBuilder.append("id='").append(id).append("', ");
-        stringBuilder.append("name='").append(name).append("', ");
-        stringBuilder.append("surname='").append(surname).append("', ");
-        stringBuilder.append("phone='").append(phone).append("', ");
-        stringBuilder.append("email='").append(email).append("', ");
-        stringBuilder.append("profession='").append(profession).append("'}");
-        return stringBuilder.toString();
+        StringBuilder sb = new StringBuilder();
+        sb.append("Doctor{");
+        sb.append("profession='").append(profession).append('\'');
+        sb.append(", id='").append(id).append('\'');
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", surname='").append(surname).append('\'');
+        sb.append(", email='").append(email).append('\'');
+        sb.append(", phone='").append(phone).append('\'');
+        sb.append("}");
+        return sb.toString();
     }
 }
