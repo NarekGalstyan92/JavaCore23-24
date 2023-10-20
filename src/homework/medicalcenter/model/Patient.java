@@ -63,7 +63,7 @@ public class Patient extends Person {
         sb.append(", phone='").append(phone).append('\'');
         sb.append(", birthday= ").append(dateOfBirth);
         sb.append(", registration date= ").append(registerDate);
-        sb.append("doctor= ").append(doctor.name).append(" ").append(doctor.surname);
+        sb.append(" doctor= ").append(doctor.name).append(" ").append(doctor.surname);
         sb.append(", appointment date and time= ").append(appointmentDateTime);
         sb.append("}");
         return sb.toString();

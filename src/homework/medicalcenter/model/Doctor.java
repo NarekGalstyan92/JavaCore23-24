@@ -25,12 +25,12 @@ public class Doctor extends Person {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Doctor{");
-        sb.append("profession='").append(profession).append('\'');
-        sb.append(", id='").append(id).append('\'');
-        sb.append(", name='").append(name).append('\'');
-        sb.append(", surname='").append(surname).append('\'');
-        sb.append(", email='").append(email).append('\'');
-        sb.append(", phone='").append(phone).append('\'');
+        sb.append("profession= '").append(profession).append('\'');
+        sb.append(", id= '").append(id).append('\'');
+        sb.append(", name= '").append(name).append('\'');
+        sb.append(", surname= '").append(surname).append('\'');
+        sb.append(", email= '").append(email).append('\'');
+        sb.append(", phone= '").append(phone).append('\'');
         sb.append("}");
         return sb.toString();
     }

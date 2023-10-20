@@ -16,19 +16,31 @@ public class MedCenterMain implements Command {
     private static DoctorStorage doctorStorage = new DoctorStorage();
     private static PatientStorage patientStorage = new PatientStorage();
 
-    public static void main(String[] args) throws ParseException {
+    public static void main(String[] args) {
 
         // list of ready doctors and patients for test
         // Doctors id starts with 'D'
         // Patients id starts with 'P'
-        Date dateOfB1 = DateUtil.stringToDate("20-10-1990");
-        Date dateOfB2 = DateUtil.stringToDate("13-08-1993");
-        Date dateOfB3 = DateUtil.stringToDate("08-03-1988");
-        Date dateOfB4 = DateUtil.stringToDate("19-06-2002");
-        Date appointmentDateTime1 = DateUtil.stringToDateTime("20-10-2022 10:00");
-        Date appointmentDateTime2 = DateUtil.stringToDateTime("20-10-2022 10:30");
-        Date appointmentDateTime3 = DateUtil.stringToDateTime("20-10-2022 11:00");
-        Date appointmentDateTime4 = DateUtil.stringToDateTime("20-10-2022 11:30");
+        Date dateOfB1 = null;
+        Date dateOfB2 = null;
+        Date dateOfB3 = null;
+        Date dateOfB4 = null;
+        Date appointmentDateTime1 = null;
+        Date appointmentDateTime2 = null;
+        Date appointmentDateTime3 = null;
+        Date appointmentDateTime4 = null;
+        try {
+            dateOfB1 = DateUtil.stringToDate("20-10-1990");
+            dateOfB2 = DateUtil.stringToDate("13-08-1993");
+            dateOfB3 = DateUtil.stringToDate("08-03-1988");
+            dateOfB4 = DateUtil.stringToDate("19-06-2002");
+            appointmentDateTime1 = DateUtil.stringToDateTime("20-10-2022 10:00");
+            appointmentDateTime2 = DateUtil.stringToDateTime("20-10-2022 10:30");
+            appointmentDateTime3 = DateUtil.stringToDateTime("20-10-2022 11:00");
+            appointmentDateTime4 = DateUtil.stringToDateTime("20-10-2022 11:30");
+        } catch (ParseException e) {
+            System.out.println("Failed to add patient!");
+        }
         Date registerDate = new Date();
         Doctor doctor1 = new Doctor("D001", "Poxos", "Poxosyan", "+37499112233", "poxospoxosyan@gmail.com", "Anesthesiologist");
         Doctor doctor2 = new Doctor("D002", "Petros", "Petrosyan", "+37499332211", "petrospetrosyan@gmail.com", "Cardiologist");
@@ -68,7 +80,11 @@ public class MedCenterMain implements Command {
                     changeDoctorById();
                     break;
                 case ADD_PATIENT:
-                    addPatient();
+                    try {
+                        addPatient();
+                    } catch (ParseException e) {
+                        System.out.println("Failed to add patient!");
+                    }
                     break;
                 case PRINT_ALL_PATIENTS_BY_DOCTOR:
                     printAllPatientsByDoctor();
