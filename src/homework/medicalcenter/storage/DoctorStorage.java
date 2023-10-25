@@ -1,5 +1,6 @@
 package homework.medicalcenter.storage;
 
+import homework.medicalcenter.exceptions.DoctorNotFoundException;
 import homework.medicalcenter.model.Doctor;
 
 public class DoctorStorage {
@@ -25,13 +26,13 @@ public class DoctorStorage {
         doctors = tmp;
     }
 
-    public Doctor getById(String doctorId) {
+    public Doctor getById(String doctorId) throws DoctorNotFoundException {
         for (int i = 0; i < size; i++) {
             if (doctors[i].getId().equals(doctorId)) {
                 return doctors[i];
             }
         }
-        return null;
+        throw new DoctorNotFoundException("Doctor with " + doctorId + " not found!");
     }
 
     public void deleteById(String doctorId) {
