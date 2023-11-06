@@ -2,7 +2,9 @@ package homework.onlineshop.storage;
 
 import homework.onlineshop.model.Product;
 
-public class ProductStorage {
+import java.io.Serializable;
+
+public class ProductStorage implements Serializable {
     private Product[] products = new Product[10];
     private int size;
 
@@ -11,6 +13,7 @@ public class ProductStorage {
             extend();
         }
         products[size++] = user;
+        StorageSerializeUtil.serializeProductStorage(this);
     }
 
     public void print() {
@@ -44,6 +47,7 @@ public class ProductStorage {
             products[i - 1] = products[i];
         }
         size--;
+        StorageSerializeUtil.serializeProductStorage(this);
         System.out.println("Product with \'" + productId + "\' was deleted!!!");
     }
 

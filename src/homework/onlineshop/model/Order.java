@@ -3,9 +3,11 @@ package homework.onlineshop.model;
 import homework.onlineshop.enums.OrderStatus;
 import homework.onlineshop.enums.PaymentMethod;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
-public class Order {
+public class Order implements Serializable {
     private String id;
     private User user;
     private Product product;
@@ -91,6 +93,19 @@ public class Order {
 
     public void setPaymentMethod(PaymentMethod paymentMethod) {
         this.paymentMethod = paymentMethod;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Order order = (Order) o;
+        return Double.compare(price, order.price) == 0 && qty == order.qty && Objects.equals(id, order.id) && Objects.equals(user, order.user) && Objects.equals(product, order.product) && Objects.equals(date, order.date) && orderStatus == order.orderStatus && paymentMethod == order.paymentMethod;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, user, product, date, price, orderStatus, qty, paymentMethod);
     }
 
     @Override

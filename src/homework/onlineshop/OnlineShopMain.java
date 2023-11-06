@@ -10,6 +10,7 @@ import homework.onlineshop.model.Product;
 import homework.onlineshop.model.User;
 import homework.onlineshop.storage.OrderStorage;
 import homework.onlineshop.storage.ProductStorage;
+import homework.onlineshop.storage.StorageSerializeUtil;
 import homework.onlineshop.storage.UserStorage;
 
 import java.text.ParseException;
@@ -20,9 +21,9 @@ import java.util.UUID;
 
 public class OnlineShopMain implements Command {
     private static Scanner scanner = new Scanner(System.in);
-    private static ProductStorage productStorage = new ProductStorage();
-    private static UserStorage userStorage = new UserStorage();
-    private static OrderStorage orderStorage = new OrderStorage();
+    private static ProductStorage productStorage = StorageSerializeUtil.deserializeProductStorage();
+    private static UserStorage userStorage = StorageSerializeUtil.deserializeUserStorage();
+    private static OrderStorage orderStorage = StorageSerializeUtil.deserializeOrderStorage();
     private static User currentUser = null;
     private static final String dashes = "-".repeat(20);
 
@@ -30,6 +31,7 @@ public class OnlineShopMain implements Command {
     public static void main(String[] args) {
 
         // a ready block of code with data to test the program
+        // after the first run please comment this block to avoid duplications
         {
             String userType1 = "ADMIN";
             String userType2 = "USER";
@@ -166,15 +168,23 @@ public class OnlineShopMain implements Command {
     private static void changeOrderStatus() throws IllegalArgumentException { // this method could be written either through user or directly wit order id
         System.out.println("Please enter order id");
         orderStorage.print();
-        String orderById = scanner.nextLine();
-        Order orderByOrderId = orderStorage.getOrderByOrderId(orderById);
-        if (orderByOrderId != null) {
+        String orderByIdStr = scanner.nextLine();
+        Order orderFromStorageById = orderStorage.getOrderByOrderId(orderByIdStr);
+        if (orderFromStorageById != null) {
             System.out.println("Please enter new status for order");
             System.out.println(Arrays.toString(OrderStatus.values()));
             OrderStatus newStatus = OrderStatus.valueOf(scanner.nextLine().toUpperCase()); // IllegalArgumentException will be thrown because of this line
-            orderByOrderId.setOrderStatus(newStatus); // changing the order status
+
+            // with next "if" block we check the status. If the status is "delivered", change quantity of that product in storage and set less
+            if (newStatus.equals(OrderStatus.DELIVERED)) {
+                Product product = productStorage.getById(orderFromStorageById.getProduct().getId()); // here we got the product the user was ordered
+                int stockQty = productStorage.getById(orderFromStorageById.getProduct().getId()).getStockQty(); // here we have in stock quantity in storage
+                int qty = orderFromStorageById.getQty(); // here is the quantity the user ordered
+                product.setStockQty(stockQty - qty); // changing in the storage quantity of the product
+            }
+            orderFromStorageById.setOrderStatus(newStatus); // changing the order status
             System.out.println("Status changed to " + newStatus);
-            System.out.println(orderByOrderId);
+            System.out.println(orderFromStorageById);
             System.out.println();
         } else {
             System.out.println("Order not found!");

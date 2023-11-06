@@ -3,8 +3,10 @@ package homework.onlineshop.storage;
 import homework.onlineshop.enums.UserType;
 import homework.onlineshop.model.User;
 
+import java.io.Serializable;
 
-public class UserStorage {
+
+public class UserStorage implements Serializable {
     private User[] users = new User[10];
     private int size;
 
@@ -13,6 +15,7 @@ public class UserStorage {
             extend();
         }
         users[size++] = user;
+        StorageSerializeUtil.serializeUserStorage(this);
     }
 
     public void print() {
@@ -50,6 +53,7 @@ public class UserStorage {
             users[i - 1] = users[i];
         }
         size--;
+        StorageSerializeUtil.serializeUserStorage(this);
         System.out.println("User with \'" + userId + "\' was deleted!!!");
     }
 

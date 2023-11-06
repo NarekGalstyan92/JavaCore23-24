@@ -2,7 +2,9 @@ package homework.onlineshop.storage;
 
 import homework.onlineshop.model.Order;
 
-public class OrderStorage {
+import java.io.Serializable;
+
+public class OrderStorage implements Serializable {
     private Order[] orders = new Order[10];
     private int size;
 
@@ -11,6 +13,7 @@ public class OrderStorage {
             extend();
         }
         orders[size++] = order;
+        StorageSerializeUtil.serializeOrderStorage(this);
     }
 
     public void print() {
@@ -38,6 +41,7 @@ public class OrderStorage {
             orders[i - 1] = orders[i];
         }
         size--;
+        StorageSerializeUtil.serializeOrderStorage(this);
     }
 
     public Order[] getOrdersByOrderId(String orderId) {

@@ -2,7 +2,10 @@ package homework.onlineshop.model;
 
 import homework.onlineshop.enums.ProductType;
 
-public class Product {
+import java.io.Serializable;
+import java.util.Objects;
+
+public class Product implements Serializable {
     private String id;
     private String name;
     private double price;
@@ -58,6 +61,19 @@ public class Product {
 
     public void setProductType(ProductType productType) {
         this.productType = productType;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Double.compare(price, product.price) == 0 && stockQty == product.stockQty && Objects.equals(id, product.id) && Objects.equals(name, product.name) && productType == product.productType;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, price, stockQty, productType);
     }
 
     @Override
