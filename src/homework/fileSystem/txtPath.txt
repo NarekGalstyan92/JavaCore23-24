@@ -1,0 +1,17 @@
+Oracle has released the production version of Helidon 4,
+a microservices framework for Java featuring a server implementation
+harnessing virtual threads for higher performance.
+
+Version 4 was announced October 24; instructions can be found at helidon.io.
+There also is a migration guide. Before Helidon 4, the project’s web server utilized
+Netty as its foundation and used a reactive API. Release 4 introduces a new server,
+internally called Nima, designed to harness the capabilities of Java 21 virtual threads.
+It is intended to reduce the effort needed to write and maintain high-throughput concurrent applications.
+Using virtual threads is a shift from managing threads as a limited resource to considering them as readily
+available assets that can be generated on demand to handle an almost limitless number of concurrent requests.
+Also with Helidon 4, Helidon MP now supports the Eclipse MicroProfile 6.0 enterprise Java microservices architecture.
+
+Java 21 or newer is necessary for using Helidon 4. Helidon is described by proponents as an open source set of
+cloud-native Java libraries for writing microservices to run on a fast web core, powered by Java virtual threads.
+There are two flavors: Helidon SE, which provides a microframework model with a small footprint and limited functionality,
+and Helidon MP, which offers a platform familiar to enterprise Java developers and features a declarative style with dependency injection.
