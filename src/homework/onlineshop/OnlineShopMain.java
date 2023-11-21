@@ -39,8 +39,8 @@ public class OnlineShopMain implements Command {
             UserType newUserType2 = UserType.valueOf(userType2.toUpperCase());
             User user1 = new User("U1234", "Narek", "Galstyan", "narek@gmail.com", "1234", newUserType1);
             User user2 = new User("U2345", "Poxos", "Poxosyan", "poxos@gmail.com", "4321", newUserType2);
-            userStorage.add(user1);
-            userStorage.add(user2);
+            userStorage.add("U1234", user1);
+            userStorage.add("U2345", user2);
             Product product1 = new Product("asdf12", "E-cigarette", 20.0, 15, ProductType.ELECTRONICS);
             Product product2 = new Product("fdsa12", "Harry Potter", 14.0, 5, ProductType.BOOKS);
             productStorage.add(product1);
@@ -402,7 +402,7 @@ public class OnlineShopMain implements Command {
         System.out.println("\t to register a user, start the id with letter U (ex. U1234)");
         String userId = scanner.nextLine();
         User user = new User(userId, username, userSurname, userEmail, userPassword, newUserType);
-        userStorage.add(user);
+        userStorage.add(userId, user);
         System.out.println("User successfully registered");
         System.out.println(user);
     }

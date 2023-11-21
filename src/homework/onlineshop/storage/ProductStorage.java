@@ -3,86 +3,53 @@ package homework.onlineshop.storage;
 import homework.onlineshop.model.Product;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ProductStorage implements Serializable {
-    private Product[] products = new Product[10];
-    private int size;
+    private Set<Product> products = new HashSet<>();
 
-    public void add(Product user) {
-        if (size == products.length) {
-            extend();
-        }
-        products[size++] = user;
+    public void add(Product product) {
+        products.add(product);
         StorageSerializeUtil.serializeProductStorage(this);
     }
 
     public void print() {
-        for (int i = 0; i < size; i++) {
-            System.out.println(products[i]);
+        for (Product product : products) {
+            System.out.println(product);
         }
     }
 
-    private void extend() {
-        Product[] tmp = new Product[products.length + 10];
-        System.arraycopy(products, 0, tmp, 0, products.length);
-        products = tmp;
-    }
 
     public Product getById(String productId) {
-        for (int i = 0; i < size; i++) {
-            if (products[i].getId().equals(productId)) {
-                return products[i];
+        for (Product product : products) {
+            if (product.getId().equals(productId)) {
+                return product;
             }
         }
         return null;
     }
 
     public void deleteById(String productId) {
-        int indexById = getIndexById(productId);
-        if (indexById == -1) {
-            System.out.println("Product does not exists!");
-            return;
-        }
-        for (int i = indexById + 1; i < size; i++) {
-            products[i - 1] = products[i];
-        }
-        size--;
-        StorageSerializeUtil.serializeProductStorage(this);
-        System.out.println("Product with \'" + productId + "\' was deleted!!!");
-    }
-
-    private int getIndexById(String productId) {
-        for (int i = 0; i < size; i++) {
-            if (products[i].getId().equals(productId)) {
-                return i;
+        for (Product product : products) {
+            if (product.getId().equals(productId)) {
+                products.remove(product);
+                StorageSerializeUtil.serializeProductStorage(this);
+                System.out.println("Product with \'" + productId + "\' was deleted!!!");
+                return;
             }
         }
-        return -1;
-    }
-
-    public Product[] getProductsByOrderId(String orderId) {
-        Product[] productsByOrder = new Product[size];
-        int j = 0;
-        for (int i = 0; i < size; i++) {
-            if (products[i] != null) {
-                productsByOrder[j] = products[i];
-                j++;
-            }
-        }
-        if (productsByOrder[0] != null) {
-            return productsByOrder;
-        }
-        return null;
+        System.out.println("Product does not exist!");
     }
 
     public Product[] getAllProducts() {
-        return products;
+        return products.toArray(new Product[0]);
     }
 
     public void printAllProducts() {
-        for (int i = 0; i < size; i++) {
-            if (products[i] != null) {
-                System.out.println(products[i]);
+        for (Product product : products) {
+            if (product != null) {
+                System.out.println(product);
             }
         }
         System.out.println();

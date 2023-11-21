@@ -3,29 +3,28 @@ package homework.onlineshop.storage;
 import homework.onlineshop.model.Order;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class OrderStorage implements Serializable {
-    private Order[] orders = new Order[10];
-    private int size;
+    private List<Order> orders = new LinkedList<>();
 
     public void add(Order order) {
-        if (size == orders.length) {
-            extend();
-        }
-        orders[size++] = order;
+        orders.add(order);
         StorageSerializeUtil.serializeOrderStorage(this);
     }
 
     public void print() {
-        for (int i = 0; i < size; i++) {
-            System.out.println(orders[i]);
+        for (Order order : orders) {
+            System.out.println(order);
         }
     }
 
     public Order getById(String orderId) {
-        for (int i = 0; i < size; i++) {
-            if (orders[i].getId().equals(orderId)) {
-                return orders[i];
+        for (Order order : orders) {
+            if (order.getId().equals(orderId)) {
+                return order;
             }
         }
         return null;
@@ -37,43 +36,45 @@ public class OrderStorage implements Serializable {
             System.out.println("Order does not exists!");
             return;
         }
-        for (int i = indexById + 1; i < size; i++) {
-            orders[i - 1] = orders[i];
+        for (int i = 0; i < orders.size(); i++) {
+            Order order = orders.get(i);
+            if (order.getId().equals(orderId)) {
+                orders.remove(i);
+                System.out.println("Order with \'" + orderId + "\' was deleted!!!");
+                StorageSerializeUtil.serializeOrderStorage(this);
+                return;
+            }
         }
-        size--;
-        StorageSerializeUtil.serializeOrderStorage(this);
     }
 
     public Order[] getOrdersByOrderId(String orderId) {
-        Order[] ordersByUserId = new Order[size];
-        int j = 0;
-        for (int i = 0; i < size; i++) {
-            if (orders[i] != null) {
-                ordersByUserId[j] = orders[i];
-                j++;
+        List<Order> ordersByOrderId = new ArrayList<>();
+        for (Order order : orders) {
+            if (order.getId().equals(orderId)) {
+                ordersByOrderId.add(order);
             }
         }
-        if (ordersByUserId[0] != null) {
-            return ordersByUserId;
+        if (!ordersByOrderId.isEmpty()) {
+            return ordersByOrderId.toArray(new Order[0]);
         }
         return null;
     }
 
     public Order getOrderByOrderId(String id) {
-        for (int i = 0; i < size; i++) {
-            if (orders[i].getId().equals(id)) {
-                return orders[i];
+        for (int i = 0; i < orders.size(); i++) {
+            if (orders.get(i).getId().equals(id)) {
+                return orders.get(i);
             }
         }
         return null;
     }
 
     public Order[] getOrdersByUserId(String id) {
-        Order[] ordersByUserId = new Order[size];
+        Order[] ordersByUserId = new Order[orders.size()];
         int j = 0;
-        for (int i = 0; i < size; i++) {
-            if (orders[i].getUser().getId().equals(id)) {
-                ordersByUserId[j] = orders[i];
+        for (int i = 0; i < orders.size(); i++) {
+            if (orders.get(i).getUser().getId().equals(id)) {
+                ordersByUserId[j] = orders.get(i);
                 j++;
             }
         }
@@ -84,18 +85,11 @@ public class OrderStorage implements Serializable {
     }
 
     private int getIndexById(String orderId) {
-        for (int i = 0; i < size; i++) {
-            if (orders[i].getId().equals(orderId)) {
+        for (int i = 0; i < orders.size(); i++) {
+            if (orders.get(i).getId().equals(orderId)) {
                 return i;
             }
         }
         return -1;
     }
-
-    private void extend() {
-        Order[] tmp = new Order[orders.length + 10];
-        System.arraycopy(orders, 0, tmp, 0, orders.length);
-        orders = tmp;
-    }
-
 }

@@ -4,130 +4,80 @@ import homework.onlineshop.enums.UserType;
 import homework.onlineshop.model.User;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class UserStorage implements Serializable {
-    private User[] users = new User[10];
-    private int size;
+    private Map<String, User> users = new HashMap<>();
 
-    public void add(User user) {
-        if (size == users.length) {
-            extend();
-        }
-        users[size++] = user;
+    public void add(String userId, User user) {
+        users.put(userId, user);
+        StorageSerializeUtil.serializeUserStorage(this);
+    }
+
+    public User getUser(String userId) {
+        return users.get(userId);
+    }
+
+    public void removeUser(String userId) {
+        users.remove(userId);
         StorageSerializeUtil.serializeUserStorage(this);
     }
 
     public void print() {
-        for (int i = 0; i < size; i++) {
-            System.out.println(users[i]);
+        for (User user : users.values()) {
+            System.out.println(user);
         }
         System.out.println();
     }
 
-    public User getById(String userId) {
-        for (int i = 0; i < size; i++) {
-            if (users[i].getId().equals(userId)) {
-                return users[i];
-            }
-        }
-        return null;
-    }
-
     public User getByEmail(String userEmail) {
-        for (int i = 0; i < size; i++) {
-            if (users[i].getEmail().equals(userEmail)) {
-                return users[i];
+        for (User user : users.values()) {
+            if (user.getEmail().equals(userEmail)) {
+                return user;
             }
         }
         return null;
     }
 
     public void deleteById(String userId) {
-        int indexById = getIndexById(userId);
-        if (indexById == -1) {
-            System.out.println("User does not exists!");
+        if (!users.containsKey(userId)) {
+            System.out.println("User does not exist!");
             return;
         }
-        for (int i = indexById + 1; i < size; i++) {
-            users[i - 1] = users[i];
-        }
-        size--;
+        users.remove(userId);
         StorageSerializeUtil.serializeUserStorage(this);
         System.out.println("User with \'" + userId + "\' was deleted!!!");
     }
 
-
     public User[] getAllUsers() {
-        return users;
+        return users.values().toArray(new User[0]);
     }
 
     public User[] getUsersByEmail(String email) {
-        User[] usersByEmail = new User[size];
-        int j = 0;
-        for (int i = 0; i < size; i++) {
-            if (users[i] != null) {
-                usersByEmail[j] = users[i];
-                j++;
+        List<User> matchingUsers = new ArrayList<>();
+        for (User user : users.values()) {
+            if (user.getEmail().equals(email)) {
+                matchingUsers.add(user);
             }
         }
-        if (usersByEmail[0] != null) {
-            return usersByEmail;
-        }
-        return null;
+        return matchingUsers.toArray(new User[0]);
     }
+
 
     public UserType getUserTypeByEmail(String email) {
-        for (int i = 0; i < size; i++) {
-            if (users[i].getEmail().equals(email)) {
-                return users[i].getUserType();
+        for (User user : users.values()) {
+            if (user.getEmail().equals(email)) {
+                return user.getUserType();
             }
         }
         return null;
     }
 
-    public User[] getUsersByPassword(String password) {
-        User[] usersByPassword = new User[size];
-        int j = 0;
-        for (int i = 0; i < size; i++) {
-            if (users[i] != null) {
-                usersByPassword[j] = users[i];
-                j++;
-            }
-        }
-        if (usersByPassword[0] != null) {
-            return usersByPassword;
-        }
-        return null;
-    }
-
-    public User[] getUsersByOrderId(String orderId) {
-        User[] usersByOrder = new User[size];
-        int j = 0;
-        for (int i = 0; i < size; i++) {
-            if (users[i] != null) {
-                usersByOrder[j] = users[i];
-                j++;
-            }
-        }
-        if (usersByOrder[0] != null) {
-            return usersByOrder;
-        }
-        return null;
-    }
-
-    private int getIndexById(String userId) {
-        for (int i = 0; i < size; i++) {
-            if (users[i].getId().equals(userId)) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    private void extend() {
-        User[] tmp = new User[users.length + 10];
-        System.arraycopy(users, 0, tmp, 0, users.length);
-        users = tmp;
-    }
+    // unsolved method
+//    public User getUserByOrderId(String orderId) {
+//    }
 }
