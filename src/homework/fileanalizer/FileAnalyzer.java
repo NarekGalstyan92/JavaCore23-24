@@ -46,18 +46,12 @@ public class FileAnalyzer {
 
     // Return count of unique words in file
     public int uniqueWordCount(String path) throws IOException {
-        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-            String line;
-            Set<String> listOfWords = new HashSet<>();
-            while ((line = br.readLine()) != null) {
-                String[] words = line.split("\\s+");
-                listOfWords.addAll(Arrays.asList(words));
-            }
-            return listOfWords.size();
-        } catch (IOException e) {
-            e.getMessage();
+        Map<String, Integer> wordMap = wordMap(path);  // Call wordMap method to get the map of word counts
+        if (wordMap != null) {
+            return wordMap.size();  // Return the size of the map, which is the count of unique words
+        } else {
+            return 0;
         }
-        return 0;
     }
 
     // Return the top most repeated words
