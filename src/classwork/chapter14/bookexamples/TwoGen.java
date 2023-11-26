@@ -1,4 +1,4 @@
-package classwork.chapter14;
+package classwork.chapter14.bookexamples;
 
 // A simple generic class with two type parameters: T and V.
 class TwoGen<T, V> {

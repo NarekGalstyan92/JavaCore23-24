@@ -1,4 +1,4 @@
-package classwork.chapter14;
+package classwork.chapter14.bookexamples;
 
 // Demonstrate the generic class.
 class GenDemo {

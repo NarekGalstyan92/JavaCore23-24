@@ -1,4 +1,4 @@
-package classwork.chapter14;
+package classwork.chapter14.bookexamples;
 
 // Now, implement MinMax
 class MyClass<T extends Comparable<T>> implements MinMax<T> {

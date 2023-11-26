@@ -1,4 +1,4 @@
-package classwork.chapter14;
+package classwork.chapter14.bookexamples;
 
 // Stats attempts (unsuccessfully) to create a generic class that can compute
 // the average of an array of numbers of any given type

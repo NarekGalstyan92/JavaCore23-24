@@ -1,4 +1,4 @@
-package classwork.chapter14;
+package classwork.chapter14.bookexamples;
 
 class Coords <T extends TwoD>{
     T[] coords;

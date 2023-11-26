@@ -1,4 +1,4 @@
-package classwork.chapter14;
+package classwork.chapter14.bookexamples;
 
 // NonGen is functionally equivalent to Gen but does not use generics
 class NonGen {

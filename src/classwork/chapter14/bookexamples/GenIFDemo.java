@@ -1,4 +1,4 @@
-package classwork.chapter14;
+package classwork.chapter14.bookexamples;
 
 class GenIFDemo {
     public static void main(String[] args) {

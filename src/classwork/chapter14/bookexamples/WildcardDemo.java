@@ -1,4 +1,4 @@
-package classwork.chapter14;
+package classwork.chapter14.bookexamples;
 
 // Demonstrate wildcard
 class WildcardDemo {

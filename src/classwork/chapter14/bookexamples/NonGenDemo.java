@@ -1,4 +1,4 @@
-package classwork.chapter14;
+package classwork.chapter14.bookexamples;
 
 public class NonGenDemo {
     public static void main(String[] args) {

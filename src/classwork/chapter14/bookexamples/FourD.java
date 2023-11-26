@@ -1,4 +1,4 @@
-package classwork.chapter14;
+package classwork.chapter14.bookexamples;
 
 // Four-dimensional coordinates
 class FourD extends ThreeD{
