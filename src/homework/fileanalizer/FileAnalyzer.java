@@ -47,11 +47,13 @@ public class FileAnalyzer {
     // Return count of unique words in file
     public int uniqueWordCount(String path) throws IOException {
         Map<String, Integer> wordMap = wordMap(path);  // Call wordMap method to get the map of word counts
-        if (wordMap != null) {
-            return wordMap.size();  // Return the size of the map, which is the count of unique words
-        } else {
-            return 0;
+        int count = 0;
+        for (Map.Entry<String, Integer> stringIntegerEntry : wordMap.entrySet()) {
+            if (stringIntegerEntry.getValue() == 1) {
+                count ++;
+            }
         }
+        return count;
     }
 
     // Return the top most repeated words
